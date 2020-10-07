@@ -1,12 +1,13 @@
 import React, { Component } from "react";
 import Note from "../notes/Note";
-import store from "../../store/dummy_Store";
 import { Link } from "react-router-dom";
 import "../assets/NotesSection.css";
+import AppContext from "../../store/appContext";
 
 class MainSection extends Component {
+  static contextType = AppContext;
   render() {
-    const notesList = store.notes.map((note) => (
+    const notesList = this.context.notes.map((note) => (
       <Note
         key={note.id}
         id={note.id}

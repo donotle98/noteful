@@ -1,9 +1,27 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
+import AppContext from "../../store/appContext";
 
 class Note extends Component {
-  state = {};
+  static contextType = AppContext;
+
+  deleteNoteItem = (noteId) => {
+    fetch("http://localhost:9090/notes/" + `${noteId}`, {
+      method: "DELETE",
+    })
+      .then((note) => {
+        note.json();
+      })
+      .then((noteResponse) => {
+        this.context.deleteNoteItem(noteId);
+        this.context.notes = this.context.notes.filter((x) => x.id !== noteId);
+        this.props.history.push("/");
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
   render() {
     return (
       <div className="note-div">
@@ -14,7 +32,12 @@ class Note extends Component {
               {moment(this.props.modified).format("MM/DD/YYYY")}
             </Link>
             <div className="butt-div">
-              <button className="btn-one">
+              <button
+                className="btn-one"
+                onClick={() => {
+                  this.deleteNoteItem(this.props.id);
+                }}
+              >
                 <span>Delete</span>
               </button>
             </div>
@@ -25,4 +48,4 @@ class Note extends Component {
   }
 }
 
-export default Note;
+export default withRouter(Note);

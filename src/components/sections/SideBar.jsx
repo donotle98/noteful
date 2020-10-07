@@ -1,12 +1,13 @@
 import React, { Component } from "react";
-import store from "../../store/dummy_Store";
 import Folder from "../folders/Folder";
 import { Link, withRouter } from "react-router-dom";
 import "../assets/SideBar.css";
+import AppContext from "../../store/appContext";
 
 class SideBar extends Component {
+  static contextType = AppContext;
   render() {
-    const folderList = store.folders.map((x) => (
+    const folderList = this.context.folders.map((x) => (
       <Folder key={x.id} id={x.id} name={x.name} />
     ));
     return (
