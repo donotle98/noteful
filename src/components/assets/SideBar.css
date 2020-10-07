@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap");
+.folder-link {
+  text-decoration: none;
+  color: white;
+}
+.folder-link:hover {
+  color: orange !important;
+  transition: all 0.4s ease 0s;
+}
+.folder-link:focus {
+  color: orange;
+}
+.add-folder-link {
+  font-size: 4vh;
+  text-decoration: none;
+  font-size: 3.2vh;
+  padding: 20px;
+  font-family: "Dancing Script", cursive;
+  color: white;
+}
+.add-folder:hover {
+  background-color: #198b19;
+  color: white !important;
+  transition: all 0.4s ease 0s;
+}
+.side-bar-route li {
+  text-align: center;
+  list-style: none;
+  background-color: transparent;
+  border: solid 2px white;
+  color: white;
+  width: 90%;
+  margin: 5px;
+}
+.side-bar-route li:hover {
+  color: rgb(0, 255, 234);
+  transition: all 0.4s ease 0s;
+}

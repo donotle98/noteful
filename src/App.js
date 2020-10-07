@@ -1,44 +1,69 @@
 import React, { Component } from "react";
-import { Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import HeaderSection from "./components/sections/HeaderSection";
-import AddFolder from "./components/folders/AddtoFolders";
-import store from "./store/dummy_Store";
+import HomeRoute from "./components/routes/HomeRoute";
 import FolderRoute from "./components/routes/FolderRoute";
+import AddNote from "./components/add/AddNote";
+import AddToFolders from "./components/add/AddToFolders";
+import "./components/assets/App.css";
 import NoteRoute from "./components/routes/NoteRoute";
-
-// import NotFoundPage from "./NotFoundPage";
+import store from "./store/dummy_Store";
 
 class App extends Component {
   state = {
-    store: {
-      notes: [],
-      folders: [],
-    },
+    store: store,
   };
 
-  componentDidMount() {
-    this.setState({ store });
-  }
+  findFolder = (noteId) => {
+    const note = this.state.store.notes.find((note) => note.id === noteId);
+    const folder = this.state.store.folders.find(
+      (folder) => folder.id === note.folderId
+    );
+    return folder;
+  };
+
+  getNotesFolder = (folderId) => {
+    return this.state.store.notes.filter((note) => note.folderId === folderId);
+  };
+
+  getNoteInfo = (noteId) => {
+    return this.state.store.notes.find((note) => note.id === noteId);
+  };
 
   render() {
     return (
-      <div>
-        <Switch>
-          <Route path="/" />
-          <Route path="/section/:HeaderSection" component={HeaderSection} />
-          <Route
-            path="/folders/:folderId"
-            render={() => <FolderRoute store={this.state.store} />}
-          />
-          <Route
-            path="/notes/:id"
-            render={() => <NoteRoute store={this.state.store} />}
-          />
-          <Route exact path="/folders/AddtoFolder" component={AddFolder} />
-          <Route path="/notes/AddNote" component={AddNote} />
-          <Route />
-        </Switch>
-      </div>
+      <>
+        <Router>
+          <div>
+            <HeaderSection />
+            <Switch>
+              <Route path="/" exact>
+                <HomeRoute />
+              </Route>
+
+              <Route path="/notes/:noteId">
+                <NoteRoute
+                  folder={this.state.store.folders}
+                  getNoteInfo={this.getNoteInfo}
+                  findFolder={this.findFolder}
+                />
+              </Route>
+
+              <Route path="/folder/:folderId">
+                <FolderRoute getNotesFolder={this.getNotesFolder} />
+              </Route>
+
+              <Route path="/add/AddToFolders" exact>
+                <AddToFolders />
+              </Route>
+
+              <Route path="/add/AddNotes" exact>
+                <AddNote />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </>
     );
   }
 }

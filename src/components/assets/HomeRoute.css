@@ -1,0 +1,40 @@
+ul {
+  margin-top: 20px;
+}
+.side-bar-route li {
+  text-align: center;
+  list-style: none;
+  background-color: transparent;
+  border: solid 2px white;
+  color: white;
+  margin-bottom: 2px;
+  padding: 25px;
+  margin-left: 0.7vh;
+}
+.side-bar-route li:hover {
+  color: rgb(0, 255, 234);
+  transition: all 0.4s ease 0s;
+}
+.notes-section-route li {
+  text-align: center;
+  list-style: none;
+  background-color: transparent;
+  border: solid 2px orange;
+  color: white;
+  padding: 25px;
+  margin: 0.7vh;
+}
+.float-container {
+  display: flex;
+}
+.float-child {
+  flex: 1;
+}
+.notes-section-route {
+  justify-content: center;
+  right: 5%;
+  text-align: center;
+}
+.side-bar-route {
+  width: 30%;
+}
