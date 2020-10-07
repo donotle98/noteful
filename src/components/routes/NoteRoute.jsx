@@ -26,9 +26,6 @@ class NoteRoute extends Component {
                 Modified: {moment(note.modified).format("MM/DD/YYYY")}
               </h3>
               <p>{note.content}</p>
-              <div className="note-div">
-                <button className="delete-button">Delete</button>
-              </div>
             </li>
           </ul>
 

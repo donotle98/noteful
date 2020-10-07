@@ -16,7 +16,6 @@ class Note extends Component {
       .then((noteResponse) => {
         this.context.deleteNoteItem(noteId);
         this.context.notes = this.context.notes.filter((x) => x.id !== noteId);
-        this.props.history.push("/");
       })
       .catch((e) => {
         console.log(e);
