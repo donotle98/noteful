@@ -1,0 +1,103 @@
+.notes-list-section a {
+  text-decoration: none;
+  list-style: none;
+  color: black;
+}
+.notes-list-section li {
+  text-decoration: none;
+  list-style: none;
+  color: black;
+}
+.note-div {
+  text-align: right;
+  margin: auto;
+  width: 70%;
+}
+.note-div li {
+  margin: 5px;
+}
+.note-div h2 {
+  text-align: center;
+  margin: 10px;
+  font-size: 1.2vh;
+  transition: all 0.4s ease 0s;
+  padding: 25px;
+}
+.note-div h2:hover {
+  transition: all 0.4s ease 0s;
+  box-shadow: 2px 2px #696969, 3px 3px #696969, 4px 4px#696969;
+  -webkit-transform: translateX(-3px);
+  transform: translateX(-3px);
+}
+.note-div h3 {
+  margin: 10px;
+}
+
+.note-div button {
+  background-color: transparent;
+  margin-top: 35px;
+  text-align: right;
+  font-size: 1.3vh;
+  font-family: sans-serif;
+  color: #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s;
+}
+
+.note-div button span {
+  position: relative;
+  z-index: 2;
+}
+
+.note-div button:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #ff003b;
+  transition: all 0.35s;
+}
+
+.note-div button:hover {
+  color: #fff !important;
+}
+
+.note-div button:hover:after {
+  width: 100%;
+}
+.note-name {
+  margin-right: 5%;
+  font-size: 3vh;
+  text-align: left;
+}
+
+.add-note-section {
+  text-align: right;
+  margin-right: 270px;
+}
+.add-note {
+  text-align: center;
+  width: 30%;
+  text-decoration: none;
+  border: none;
+  background: white;
+  color: black !important;
+  font-weight: 100;
+  padding: 20px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+.add-note:hover {
+  color: #ffffff !important;
+  background: black;
+  border-color: black !important;
+  transition: all 0.4s ease 0s;
+}

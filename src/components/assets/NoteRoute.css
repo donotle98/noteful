@@ -1,0 +1,14 @@
+ul {
+  list-style: none;
+  text-decoration: none;
+}
+.folder-name {
+  margin: 25px;
+  padding: 30px;
+  box-shadow: 2px 2px #696969, 3px 3px #696969, 4px 4px#696969;
+}
+.note-item {
+  padding: 20px;
+  margin: 25px;
+  box-shadow: 2px 2px #696969, 3px 3px #696969, 4px 4px#696969;
+}
