@@ -54,11 +54,11 @@ class App extends Component {
               </Route>
 
               <Route path="/add/AddToFolders" exact>
-                <AddToFolders />
+                <AddToFolders folder={this.state.store.folders} />
               </Route>
 
               <Route path="/add/AddNotes" exact>
-                <AddNote />
+                <AddNote notes={this.state.store.notes} />
               </Route>
             </Switch>
           </div>

@@ -1,0 +1,63 @@
+.add-folder-section {
+  margin: auto;
+  text-align: center;
+}
+.add-folder-header {
+  font-size: 3vh;
+  border-bottom: solid 2px black;
+  margin-bottom: 50px;
+}
+.add-folder-form {
+  display: flex;
+  flex-direction: column;
+}
+.add-folder-form label {
+  font-size: 2vh;
+  text-align: left;
+  margin-bottom: 15px;
+}
+.add-folder-form input {
+  height: 30px;
+}
+.add-folder-form button {
+  padding: 10px;
+  background-color: transparent;
+  margin-top: 35px;
+  text-align: right;
+  font-size: 1.3vh;
+  font-family: sans-serif;
+  color: #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s;
+}
+
+.add-folder-form button span {
+  position: relative;
+  z-index: 2;
+}
+
+.add-folder-form button:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #008000;
+  transition: all 0.35s;
+}
+
+.add-folder-form button:hover {
+  color: #fff !important;
+}
+
+.add-folder-form button:hover:after {
+  width: 100%;
+}
+
+.add-folder-section .back-button-div {
+  margin: 0;
+  margin-top: 40px;
+}
