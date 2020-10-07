@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import SideBar from "../sections/SideBar";
 import { withRouter, Link } from "react-router-dom";
 import Note from "../notes/Note";
-import "../assets/FolderRoute.css";
 
 class FolderRoute extends Component {
   render() {
@@ -18,9 +17,8 @@ class FolderRoute extends Component {
             </button>
           </div>
         </div>
-
-        <div className="notes-section-route float-child">
-          <ul>
+        <div className="notes-section-route">
+          <ul className="notes-list-section">
             {folderArr.map((x) => (
               <Note
                 key={x.id}
@@ -31,11 +29,12 @@ class FolderRoute extends Component {
                 content={x.content}
               ></Note>
             ))}
-            <Link to="/add/AddNotes" className="add-note">
-              <div className="add-note">
-                <li>Add Note</li>
-              </div>
-            </Link>
+
+            <div className="add-note-section">
+              <Link to="/add/AddNotes" className="add-note">
+                Add Note
+              </Link>
+            </div>
           </ul>
         </div>
       </div>

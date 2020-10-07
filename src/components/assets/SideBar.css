@@ -1,38 +1,63 @@
-@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&display=swap");
-.folder-link {
+.side-bar a {
+  list-style: none;
   text-decoration: none;
-  color: white;
+  color: black;
 }
-.folder-link:hover {
-  color: orange !important;
+.side-bar li {
+  list-style: none;
+  text-decoration: none;
+  width: 200px;
+  text-align: center;
+  padding: 40px;
+  margin: 10px;
+  transition: 1s;
+}
+.side-bar li:hover {
   transition: all 0.4s ease 0s;
+  box-shadow: 2px 2px #696969, 3px 3px #696969, 4px 4px#696969;
+  -webkit-transform: translateX(-3px);
+  transform: translateX(-3px);
 }
-.folder-link:focus {
-  color: orange;
+.add-folder-section {
+  width: 200px;
+  text-align: center;
+  margin: 20px;
+  margin-left: 50px;
 }
 .add-folder-link {
-  font-size: 4vh;
-  text-decoration: none;
-  font-size: 3.2vh;
+  border: none;
+  background: white;
+  color: black !important;
+  font-weight: 100;
   padding: 20px;
-  font-family: "Dancing Script", cursive;
-  color: white;
-}
-.add-folder:hover {
-  background-color: #198b19;
-  color: white !important;
+  text-transform: uppercase;
+  border-radius: 6px;
+  display: inline-block;
   transition: all 0.4s ease 0s;
 }
-.side-bar-route li {
-  text-align: center;
-  list-style: none;
-  background-color: transparent;
-  border: solid 2px white;
-  color: white;
-  width: 90%;
-  margin: 5px;
+.add-folder-link:hover {
+  color: #ffffff !important;
+  background: black;
+  border-color: black !important;
+  transition: all 0.4s ease 0s;
 }
-.side-bar-route li:hover {
-  color: rgb(0, 255, 234);
+.back-button-div {
+  margin-left: 60%;
+}
+.go-back {
+  border: none;
+  background: white;
+  color: black !important;
+  font-weight: 100;
+  padding: 20px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
+}
+.go-back:hover {
+  color: #ffffff !important;
+  background: black;
+  border-color: black !important;
   transition: all 0.4s ease 0s;
 }

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Note from "../notes/Note";
 import store from "../../store/dummy_Store";
 import { Link } from "react-router-dom";
-import "../assets/NoteSection.css";
+import "../assets/NotesSection.css";
 
 class MainSection extends Component {
   render() {
@@ -17,11 +17,13 @@ class MainSection extends Component {
       />
     ));
     return (
-      <div>
+      <div className="notes-section">
         <ul className="notes-list-section">{notesList}</ul>
-        <Link to="/add/AddNotes" className="add-note">
-          <div className="add-note">Add Note</div>
-        </Link>
+        <div className="add-note-section">
+          <Link to="/add/AddNotes" className="add-note">
+            Add Note
+          </Link>
+        </div>
       </div>
     );
   }

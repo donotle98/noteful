@@ -5,9 +5,9 @@ import HomeRoute from "./components/routes/HomeRoute";
 import FolderRoute from "./components/routes/FolderRoute";
 import AddNote from "./components/add/AddNote";
 import AddToFolders from "./components/add/AddToFolders";
-import "./components/assets/App.css";
 import NoteRoute from "./components/routes/NoteRoute";
 import store from "./store/dummy_Store";
+import "./components/assets/App.css";
 
 class App extends Component {
   state = {
