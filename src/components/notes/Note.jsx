@@ -5,22 +5,6 @@ import AppContext from "../../store/appContext";
 
 class Note extends Component {
   static contextType = AppContext;
-
-  deleteNoteItem = (noteId) => {
-    fetch("http://localhost:9090/notes/" + `${noteId}`, {
-      method: "DELETE",
-    })
-      .then((note) => {
-        note.json();
-      })
-      .then((noteResponse) => {
-        this.context.deleteNoteItem(noteId);
-        this.context.notes = this.context.notes.filter((x) => x.id !== noteId);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
   render() {
     return (
       <div className="note-div">
@@ -30,18 +14,18 @@ class Note extends Component {
               <span className="note-name">{this.props.name}</span> Modified:{" "}
               {moment(this.props.modified).format("MM/DD/YYYY")}
             </Link>
-            <div className="butt-div">
-              <button
-                className="btn-one"
-                onClick={() => {
-                  this.deleteNoteItem(this.props.id);
-                }}
-              >
-                <span>Delete</span>
-              </button>
-            </div>
           </h2>
         </li>
+        <div className="butt-div">
+          <button
+            className="btn-one"
+            onClick={() => {
+              this.context.deleteNoteItem(this.props.id);
+            }}
+          >
+            <span>Delete</span>
+          </button>
+        </div>
       </div>
     );
   }

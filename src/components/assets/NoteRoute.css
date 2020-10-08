@@ -8,7 +8,22 @@ ul {
   box-shadow: 2px 2px #696969, 3px 3px #696969, 4px 4px#696969;
 }
 .note-item {
-  padding: 20px;
+  padding: 10px;
   margin: 25px;
   box-shadow: 2px 2px #696969, 3px 3px #696969, 4px 4px#696969;
+}
+.note-item h2 {
+  font-size: 3.5vh;
+}
+.note-item h3 {
+  font-size: 1.5vh;
+  padding-bottom: 20px;
+}
+.note-item-header {
+  font-size: 4vh;
+}
+p {
+  font-size: 2vh;
+  line-height: 3vh;
+  padding: 15px;
 }

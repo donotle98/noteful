@@ -19,7 +19,7 @@
 .note-div h2 {
   text-align: center;
   margin: 10px;
-  font-size: 1.2vh;
+  font-size: 2vh;
   transition: all 0.4s ease 0s;
   padding: 25px;
 }
@@ -71,23 +71,24 @@
 }
 .note-name {
   margin-right: 5%;
-  font-size: 3vh;
+  font-size: 4vh;
   text-align: left;
 }
 
 .add-note-section {
   text-align: right;
   margin-right: 270px;
+  font-size: 2vh;
 }
 .add-note {
   text-align: center;
-  width: 30%;
+  width: 20%;
   text-decoration: none;
   border: none;
   background: white;
   color: black !important;
   font-weight: 100;
-  padding: 20px;
+  padding: 15px;
   text-transform: uppercase;
   border-radius: 6px;
   display: inline-block;

@@ -1,23 +1,16 @@
 import React, { Component } from "react";
-import SideBar from "../sections/SideBar";
+import AppContext from "../../store/appContext";
 import { withRouter } from "react-router-dom";
 import moment from "moment";
 import "../assets/NoteRoute.css";
 
 class NoteRoute extends Component {
+  static contextType = AppContext;
   render() {
     const { noteId } = this.props.match.params;
     const note = this.props.getNoteInfo(noteId);
-    const folder = this.props.findFolder(noteId);
     return (
       <div className="float-container float-child">
-        <div className="side-bar-route">
-          <ul className="folder-name">
-            <li>
-              <h3>{folder.name}</h3>
-            </li>
-          </ul>
-        </div>
         <div className="notes-section-route float-child">
           <ul className="note-item">
             <li>
@@ -28,10 +21,22 @@ class NoteRoute extends Component {
               <p>{note.content}</p>
             </li>
           </ul>
-
-          <button onClick={this.props.history.goBack} className="go-back">
-            Go Back
-          </button>
+          <div className="note-div">
+            <button
+              className="btn-one"
+              onClick={() => {
+                this.context.deleteNoteItem(note.id);
+                this.props.history.goBack();
+              }}
+            >
+              <span>Delete</span>
+            </button>
+          </div>
+          <div className="note-route-back">
+            <button onClick={this.props.history.goBack} className="go-back">
+              Go Back
+            </button>
+          </div>
         </div>
       </div>
     );

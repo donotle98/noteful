@@ -1,0 +1,77 @@
+.add-note-div {
+  margin: auto;
+  text-align: center;
+  width: 200px;
+}
+.add-note-header {
+  font-size: 3vh;
+  border-bottom: solid 2px black;
+  margin-bottom: 50px;
+}
+.add-note-form {
+  display: flex;
+  flex-direction: column;
+}
+.add-note-form label {
+  font-size: 2vh;
+  text-align: left;
+  margin-bottom: 15px;
+}
+.add-note-form input {
+  height: 25px;
+}
+.add-note-form textarea {
+  height: 150px;
+}
+.select-folder {
+  margin-top: 25px;
+}
+.button-style button {
+  padding: 10px;
+  background-color: transparent;
+  margin-top: 35px;
+  margin-bottom: 40px;
+  text-align: right;
+  font-size: 1.3vh;
+  font-family: sans-serif;
+  color: #333;
+  letter-spacing: 2px;
+  text-align: center;
+  position: relative;
+  transition: all 0.35s;
+}
+
+.button-style button span {
+  position: relative;
+  z-index: 2;
+}
+
+.button-style button:after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100%;
+  background: #008000;
+  transition: all 0.35s;
+}
+
+.button-style button:hover {
+  color: #fff !important;
+}
+
+.button-style button:hover:after {
+  width: 100%;
+}
+.back-button-div {
+  margin-top: 15px;
+  margin: auto;
+  text-align: center;
+}
+.add-note-div .error-message {
+  font-size: 2vh;
+}
+.error-message {
+  color: red;
+}

@@ -4,32 +4,70 @@ import HeaderSection from "./components/sections/HeaderSection";
 import HomeRoute from "./components/routes/HomeRoute";
 import FolderRoute from "./components/routes/FolderRoute";
 import AddNote from "./components/add/AddNote";
-import AddToFolders from "./components/add/AddToFolders";
+import AddToFolders from "./components/add/AddFolder";
 import NoteRoute from "./components/routes/NoteRoute";
 import "./components/assets/App.css";
 import AppContext from "./store/appContext";
+import NotFoundPage from "./NotFoundPage";
+import ErrorBoundary from "./components/Error/ErrorBoundary";
 
 class App extends Component {
   state = {
     folders: [],
     notes: [],
+    folderName: "",
+    noteName: "",
+    noteContent: "",
+    targetFolder: "",
     deleteNoteItem: () => {},
+    addFolder: () => {},
+    addNotes: () => {},
+    handleFolderNameChange: () => {},
   };
 
-  findFolder = (noteId) => {
-    const note = this.state.notes.find((note) => note.id === noteId);
-    const folder = this.state.folders.find(
-      (folder) => folder.id === note.folderId
-    );
-    return folder;
+  handleFolderNameChange = (e) => {
+    let folderName = e.target.value;
+    this.setState({ folderName: folderName });
   };
 
   getNotesFolder = (folderId) => {
     return this.state.notes.filter((note) => note.folderId === folderId);
   };
-
-  getNoteInfo = (noteId) => {
-    return this.state.notes.find((note) => note.id === noteId);
+  addNotes = (note) => {
+    fetch(`http://localhost:9090/notes`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(note),
+    })
+      .then((res) => res.json())
+      .then((newNote) => {
+        const newNotes = [...this.state.notes, newNote];
+        this.setState({ notes: newNotes });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+  addFolder = (folderName) => {
+    fetch(`http://localhost:9090/folders`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name: folderName }),
+    })
+      .then((res) => res.json())
+      .then((results) => {
+        const newFolder = [...this.state.folders, results];
+        this.setState({ folders: newFolder, folderName: "" });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
   fetchFolders = () => {
     fetch(`http://localhost:9090/folders`, {
@@ -50,23 +88,51 @@ class App extends Component {
   };
 
   deleteNoteItem = (noteId) => {
-    const newNotes = this.state.notes.filter((note) => note.id !== noteId);
-    this.setState({ notes: newNotes });
+    fetch(`http://localhost:9090/notes/${noteId}`, {
+      method: "DELETE",
+    })
+      .then((note) => {
+        note.json();
+      })
+      .then((noteResponse) => {
+        const newNotes = this.state.notes.filter((note) => note.id !== noteId);
+        this.setState({ notes: newNotes });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   };
 
   componentDidMount() {
     this.fetchFolders();
     this.fetchNotes();
     this.setState({
+      folderName: this.state.folderName,
       deleteNoteItem: this.state.deleteNoteItem,
+      addFolder: this.state.addFolder,
+      addNotes: this.state.addNotes,
+      handleFolderNameChange: this.state.handleFolderNameChange,
+      noteName: this.state.noteName,
+      noteContent: this.state.noteContent,
+      targetFolder: this.state.targetFolder,
     });
   }
-
+  getNoteInfo = (noteId) => {
+    console.log(noteId);
+    return this.state.notes.find((note) => note.id === noteId);
+  };
   render() {
     const contextValue = {
       folders: this.state.folders,
       notes: this.state.notes,
+      folderName: this.state.folderName,
       deleteNoteItem: this.deleteNoteItem,
+      handleFolderNameChange: this.handleFolderNameChange,
+      addFolder: this.addFolder,
+      addNotes: this.addNotes,
+      noteName: this.state.noteName,
+      noteContent: this.state.noteContent,
+      targetFolder: this.state.targetFolder,
     };
     return (
       <>
@@ -77,26 +143,38 @@ class App extends Component {
             <AppContext.Provider value={contextValue}>
               <Switch>
                 <Route path="/" exact>
-                  <HomeRoute />
+                  <ErrorBoundary>
+                    <HomeRoute />
+                  </ErrorBoundary>
                 </Route>
 
                 <Route path="/notes/:noteId">
-                  <NoteRoute
-                    getNoteInfo={this.getNoteInfo}
-                    findFolder={this.findFolder}
-                  />
+                  <ErrorBoundary>
+                    <NoteRoute getNoteInfo={this.getNoteInfo} />
+                  </ErrorBoundary>
                 </Route>
 
                 <Route path="/folder/:folderId">
-                  <FolderRoute getNotesFolder={this.getNotesFolder} />
+                  <ErrorBoundary>
+                    <FolderRoute getNotesFolder={this.getNotesFolder} />
+                  </ErrorBoundary>
                 </Route>
 
                 <Route path="/add/AddToFolders" exact>
-                  <AddToFolders />
+                  <ErrorBoundary>
+                    <AddToFolders />
+                  </ErrorBoundary>
                 </Route>
 
                 <Route path="/add/AddNotes" exact>
-                  <AddNote />
+                  <ErrorBoundary>
+                    <AddNote />
+                  </ErrorBoundary>
+                </Route>
+                <Route>
+                  <ErrorBoundary>
+                    <NotFoundPage />
+                  </ErrorBoundary>
                 </Route>
               </Switch>
             </AppContext.Provider>
