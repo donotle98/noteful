@@ -7,9 +7,11 @@ class HeaderSection extends Component {
     return (
       <div className="header-section">
         <h1 className="header-text">
-          <Link className="header-link" to="/">
-            Noteful
-          </Link>
+          <span>
+            <Link className="header-link" to="/">
+              Noteful
+            </Link>
+          </span>
         </h1>
       </div>
     );

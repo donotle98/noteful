@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import "./components/assets/NotFoundPage.css";
 
 class NotFoundPage extends Component {
   render() {
     return (
-      <div>
-        <h1>PAGE NOT FOUND</h1>
+      <div className="page-not-found">
+        <span>PAGE NOT FOUND</span>
       </div>
     );
   }

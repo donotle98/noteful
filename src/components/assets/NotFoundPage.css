@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&display=swap");
+.page-not-found {
+  text-align: center;
+}
+.page-not-found span {
+  font-family: "Anton", sans-serif;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 120px;
+  letter-spacing: 0.1em;
+  -webkit-text-fill-color: transparent;
+  -webkit-text-stroke-width: 3px;
+  -webkit-text-stroke-color: black;
+  text-shadow: 8px 8px#0068FF, 20px 20px #000000;
+}

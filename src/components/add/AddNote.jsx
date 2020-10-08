@@ -16,6 +16,7 @@ class AddNote extends Component {
     console.log(e.target.value);
     this.context.targetFolder = e.target.value;
   };
+
   handleNoteContent = (e) => {
     this.context.noteContent = e.target.value;
   };
@@ -25,10 +26,16 @@ class AddNote extends Component {
     let content = this.context.noteContent;
     let folderId = this.context.targetFolder;
     let modified = new Date().toISOString();
+
+    let r =
+      Math.random().toString(36).substring(7) +
+      Math.random().toString(36).substring(7);
+
+    let id = r;
     if (name === "") {
       this.setState({ nameErr: "Please enter a note name" });
     } else {
-      this.context.addNotes({ name, content, folderId, modified });
+      this.context.addNotes({ name, content, folderId, modified, id });
       this.props.history.goBack();
     }
   };

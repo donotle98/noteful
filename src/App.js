@@ -143,36 +143,36 @@ class App extends Component {
             <AppContext.Provider value={contextValue}>
               <Switch>
                 <Route path="/" exact>
-                  <ErrorBoundary>
+                  <ErrorBoundary message={"could not load home page"}>
                     <HomeRoute />
                   </ErrorBoundary>
                 </Route>
 
                 <Route path="/notes/:noteId">
-                  <ErrorBoundary>
+                  <ErrorBoundary message={"could not load note page"}>
                     <NoteRoute getNoteInfo={this.getNoteInfo} />
                   </ErrorBoundary>
                 </Route>
 
                 <Route path="/folder/:folderId">
-                  <ErrorBoundary>
+                  <ErrorBoundary message={"could not load folder page"}>
                     <FolderRoute getNotesFolder={this.getNotesFolder} />
                   </ErrorBoundary>
                 </Route>
 
                 <Route path="/add/AddToFolders" exact>
-                  <ErrorBoundary>
+                  <ErrorBoundary message={"could not load add folder page"}>
                     <AddToFolders />
                   </ErrorBoundary>
                 </Route>
 
                 <Route path="/add/AddNotes" exact>
-                  <ErrorBoundary>
+                  <ErrorBoundary message={"could not load add note page"}>
                     <AddNote />
                   </ErrorBoundary>
                 </Route>
                 <Route>
-                  <ErrorBoundary>
+                  <ErrorBoundary message={"could not load not found page"}>
                     <NotFoundPage />
                   </ErrorBoundary>
                 </Route>

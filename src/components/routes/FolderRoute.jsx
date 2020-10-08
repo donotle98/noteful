@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import SideBar from "../sections/SideBar";
 import { withRouter, Link } from "react-router-dom";
 import Note from "../notes/Note";
+import PropTypes from "prop-types";
 
 class FolderRoute extends Component {
   render() {
@@ -42,3 +43,6 @@ class FolderRoute extends Component {
   }
 }
 export default withRouter(FolderRoute);
+FolderRoute.propTypes = {
+  getNotesFolder: PropTypes.func,
+};

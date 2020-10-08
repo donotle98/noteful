@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import moment from "moment";
 import AppContext from "../../store/appContext";
+import PropTypes from "prop-types";
 
 class Note extends Component {
   static contextType = AppContext;
@@ -32,3 +33,11 @@ class Note extends Component {
 }
 
 export default withRouter(Note);
+
+Note.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string,
+  content: PropTypes.string,
+  folderId: PropTypes.string,
+  modified: PropTypes.string,
+};

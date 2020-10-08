@@ -3,6 +3,7 @@ import AppContext from "../../store/appContext";
 import { withRouter } from "react-router-dom";
 import moment from "moment";
 import "../assets/NoteRoute.css";
+import PropTypes from "prop-types";
 
 class NoteRoute extends Component {
   static contextType = AppContext;
@@ -44,3 +45,7 @@ class NoteRoute extends Component {
 }
 
 export default withRouter(NoteRoute);
+
+NoteRoute.propTypes = {
+  getNoteInfo: PropTypes.func,
+};

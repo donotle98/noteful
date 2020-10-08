@@ -12,7 +12,7 @@ class ErrorBoundary extends React.Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log("Oops, there was an error", error, errorInfo);
+    console.log("there was an error", error, errorInfo);
   }
 
   render() {
@@ -25,7 +25,7 @@ class ErrorBoundary extends React.Component {
 }
 
 ErrorBoundary.defaultProps = {
-  message: "Something went wrong...",
+  message: "Something went wrong",
 };
 
 ErrorBoundary.propTypes = {

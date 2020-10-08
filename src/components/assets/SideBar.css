@@ -15,7 +15,7 @@
 }
 .side-bar li:hover {
   transition: all 0.4s ease 0s;
-  box-shadow: 2px 2px #696969, 3px 3px #696969, 4px 4px#696969;
+  box-shadow: 2px 2px lightblue, 3px 3px #696969, 4px 4px#696969;
   -webkit-transform: translateX(-3px);
   transform: translateX(-3px);
 }
