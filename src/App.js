@@ -15,128 +15,52 @@ class App extends Component {
     state = {
         folders: [],
         notes: [],
-        folderName: "",
-        noteName: "",
-        noteContent: "",
-        targetFolder: "",
-        deleteNoteItem: () => {},
-        addFolder: () => {},
-        addNotes: () => {},
-        handleFolderNameChange: () => {},
     };
+    updateList = () => {
+        Promise.all([
+            fetch(`https://arcane-river-47535.herokuapp.com/api/notes`),
+            fetch(`https://arcane-river-47535.herokuapp.com/api/folders`),
+        ])
+            .then(([notesRes, foldersRes]) => {
+                if (!notesRes.ok)
+                    return notesRes.json().then((e) => Promise.reject(e));
+                if (!foldersRes.ok)
+                    return foldersRes.json().then((e) => Promise.reject(e));
 
-    handleFolderNameChange = (e) => {
-        let folderName = e.target.value;
-        this.setState({ folderName: folderName });
-    };
-
-    getNotesFolder = (folderId) => {
-        return this.state.notes.filter((note) => note.folderId === folderId);
-    };
-    addNotes = (note) => {
-        fetch(`https://arcane-river-47535.herokuapp.com/api/notes`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(note),
-        })
-            .then((res) => res.json())
-            .then((newNote) => {
-                const newNotes = [...this.state.notes, newNote];
-                this.setState({ notes: newNotes });
+                return Promise.all([notesRes.json(), foldersRes.json()]);
             })
-            .catch((e) => {
-                console.log(e);
+            .then(([notes, folders]) => {
+                this.setState({ notes, folders });
+            })
+            .catch((error) => {
+                console.error({ error });
             });
     };
-    addFolder = (folderName) => {
-        fetch(`https://arcane-river-47535.herokuapp.com/api/folders`, {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ name: folderName }),
-        })
-            .then((res) => res.json())
-            .then((results) => {
-                const newFolder = [...this.state.folders, results];
-                this.setState({ folders: newFolder, folderName: "" });
-            })
-            .catch((e) => {
-                console.log(e);
-            });
-    };
-    fetchFolders = () => {
-        fetch(`https://arcane-river-47535.herokuapp.com/api/folders`, {
-            method: "GET",
-            headers: { "content-type": "application/json" },
-        })
-            .then((folder) => folder.json())
-            .then((folderResponse) =>
-                this.setState({ folders: folderResponse })
-            );
+    handleAddFolder = (folder) => {
+        this.setState({
+            folders: [...this.state.folders, folder],
+        });
     };
 
-    fetchNotes = () => {
-        fetch(`https://arcane-river-47535.herokuapp.com/api/notes`, {
-            method: "GET",
-            headers: { "content-type": "application/json" },
-        })
-            .then((note) => note.json())
-            .then((noteResponse) => this.setState({ notes: noteResponse }));
+    handleAddNote = (note) => {
+        this.setState({
+            notes: [...this.state.notes, note],
+        });
     };
-
-    deleteNoteItem = (noteId) => {
-        fetch(`https://arcane-river-47535.herokuapp.com/api/notes/${noteId}`, {
-            method: "DELETE",
-        })
-            .then((note) => {
-                note.json();
-            })
-            .then((noteResponse) => {
-                const newNotes = this.state.notes.filter(
-                    (note) => note.id !== noteId
-                );
-                this.setState({ notes: newNotes });
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+    handleDeleteNote = (noteId) => {
+        this.updateList();
     };
 
     componentDidMount() {
-        this.fetchFolders();
-        this.fetchNotes();
-        this.setState({
-            folderName: this.state.folderName,
-            deleteNoteItem: this.state.deleteNoteItem,
-            addFolder: this.state.addFolder,
-            addNotes: this.state.addNotes,
-            handleFolderNameChange: this.state.handleFolderNameChange,
-            noteName: this.state.noteName,
-            noteContent: this.state.noteContent,
-            targetFolder: this.state.targetFolder,
-        });
+        this.updateList();
     }
-    getNoteInfo = (noteId) => {
-        console.log(noteId);
-        return this.state.notes.find((note) => note.id === noteId);
-    };
     render() {
         const contextValue = {
-            folders: this.state.folders,
             notes: this.state.notes,
-            folderName: this.state.folderName,
-            deleteNoteItem: this.deleteNoteItem,
-            handleFolderNameChange: this.handleFolderNameChange,
-            addFolder: this.addFolder,
-            addNotes: this.addNotes,
-            noteName: this.state.noteName,
-            noteContent: this.state.noteContent,
-            targetFolder: this.state.targetFolder,
+            folders: this.state.folders,
+            deleteNote: this.handleDeleteNote,
+            addFolder: this.handleAddFolder,
+            addNote: this.handleAddNote,
         };
         return (
             <>
@@ -158,9 +82,7 @@ class App extends Component {
                                     <ErrorBoundary
                                         message={"could not load note page"}
                                     >
-                                        <NoteRoute
-                                            getNoteInfo={this.getNoteInfo}
-                                        />
+                                        <NoteRoute />
                                     </ErrorBoundary>
                                 </Route>
 
