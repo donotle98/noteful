@@ -34,7 +34,7 @@ class App extends Component {
         return this.state.notes.filter((note) => note.folderId === folderId);
     };
     addNotes = (note) => {
-        fetch(`https://floating-hollows-01510.herokuapp.com/api/notes`, {
+        fetch(`https://arcane-river-47535.herokuapp.com/api/notes`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -52,7 +52,7 @@ class App extends Component {
             });
     };
     addFolder = (folderName) => {
-        fetch(`https://floating-hollows-01510.herokuapp.com/api/folders`, {
+        fetch(`https://arcane-river-47535.herokuapp.com/api/folders`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -70,7 +70,7 @@ class App extends Component {
             });
     };
     fetchFolders = () => {
-        fetch(`https://floating-hollows-01510.herokuapp.com/api/folders`, {
+        fetch(`https://arcane-river-47535.herokuapp.com/api/folders`, {
             method: "GET",
             headers: { "content-type": "application/json" },
         })
@@ -81,7 +81,7 @@ class App extends Component {
     };
 
     fetchNotes = () => {
-        fetch(`https://floating-hollows-01510.herokuapp.com/api/notes`, {
+        fetch(`https://arcane-river-47535.herokuapp.com/api/notes`, {
             method: "GET",
             headers: { "content-type": "application/json" },
         })
@@ -90,12 +90,9 @@ class App extends Component {
     };
 
     deleteNoteItem = (noteId) => {
-        fetch(
-            `https://floating-hollows-01510.herokuapp.com/api/notes/${noteId}`,
-            {
-                method: "DELETE",
-            }
-        )
+        fetch(`https://arcane-river-47535.herokuapp.com/api/notes/${noteId}`, {
+            method: "DELETE",
+        })
             .then((note) => {
                 note.json();
             })
