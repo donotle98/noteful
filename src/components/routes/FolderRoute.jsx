@@ -9,14 +9,7 @@ class FolderRoute extends Component {
     static contextType = AppContext;
     render() {
         const { folderId } = this.props.match.params;
-        let folderArr = [];
-        //const folderArr = this.props.getNotesFolder(folderId);
-        let random = this.context.notes.map((x) => {
-            if (x.folder_id === folderId) {
-                folderArr.push(x);
-            }
-        });
-        console.log(folderArr);
+        const { notes = [] } = this.context;
         return (
             <div className='float-container float-child'>
                 <div className='side-bar-route'>
@@ -32,17 +25,21 @@ class FolderRoute extends Component {
                 </div>
                 <div className='notes-section-route'>
                     <ul className='notes-list-section'>
-                        {folderArr.map((x) => (
-                            <Note
-                                key={x.id}
-                                id={x.id}
-                                name={x.title}
-                                modified={x.date_added}
-                                folderId={x.folderId}
-                                content={x.content}
-                            ></Note>
-                        ))}
-
+                        {notes.map((note) => {
+                            let folder_id = note.folder_id;
+                            if (folder_id == folderId) {
+                                return (
+                                    <Note
+                                        key={note.id}
+                                        id={note.id}
+                                        name={note.title}
+                                        modified={note.date_added}
+                                        folderId={note.folderId}
+                                        content={note.content}
+                                    ></Note>
+                                );
+                            }
+                        })}
                         <div className='add-note-section'>
                             <Link to='/add/AddNotes' className='add-note'>
                                 Add Note

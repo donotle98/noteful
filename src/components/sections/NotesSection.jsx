@@ -6,8 +6,10 @@ import AppContext from "../../store/appContext";
 
 class MainSection extends Component {
     static contextType = AppContext;
+
     render() {
-        const notesList = this.context.notes.map((note) => (
+        const { notes = [] } = this.context;
+        const notesList = notes.map((note) => (
             <Note
                 key={note.id}
                 id={note.id}

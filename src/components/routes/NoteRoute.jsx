@@ -7,20 +7,43 @@ import PropTypes from "prop-types";
 
 class NoteRoute extends Component {
     static contextType = AppContext;
+    handleClickDelete = (e) => {
+        e.preventDefault();
+        console.log("delete pressed");
+        const noteId = this.props.id;
+        fetch(`https://arcane-river-47535.herokuapp.com/api/notes/${noteId}`, {
+            method: "DELETE",
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    return res.json().then((e) => Promise.reject(e));
+                }
+                return res.json();
+            })
+            .then((resJson) => {
+                console.log(resJson.noteId);
+                this.context.handleDeleteNote(resJson.noteId);
+            })
+            .catch((e) => {
+                console.log("delete note", { e });
+            });
+    };
     render() {
         const { noteId } = this.props.match.params;
+        const { notes = [] } = this.context;
         let title = "";
         let content = "";
         let date = "";
         let id = 0;
-        let note = this.context.notes.map((x) => {
+        notes.map((x) => {
             if (x.id == noteId) {
                 id = x.id;
                 title = x.title;
                 content = x.content;
-                date = x.date_modified;
+                date = x.date_created;
             }
         });
+
         return (
             <div className='float-container float-child'>
                 <div className='notes-section-route float-child'>
@@ -36,8 +59,8 @@ class NoteRoute extends Component {
                     <div className='note-div'>
                         <button
                             className='btn-one'
-                            onClick={() => {
-                                this.context.deleteNoteItem(id);
+                            onClick={(e) => {
+                                this.handleClickDelete(e);
                                 this.props.history.goBack();
                             }}
                         >
