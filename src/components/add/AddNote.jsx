@@ -6,42 +6,54 @@ import FolderSelects from "../add/FolderSelects";
 
 class AddNote extends Component {
     state = {
-        nameErr: "",
+        nameValid: false,
+        name: "",
+        validationMsg: {
+            name: "",
+        },
     };
     static contextType = AppContext;
 
-    handleNameChange = (e) => {
-        this.context.noteName = e.target.value;
-    };
-    handleTargetFolder = (e) => {
-        console.log(e.target.value);
-        this.context.targetFolder = e.target.value;
+    validateName(fieldValue) {
+        const fieldErrors = { ...this.state.validationMsg };
+        let hasError = false;
+
+        fieldValue = fieldValue.trim();
+        if (fieldValue.length === 0) {
+            fieldErrors.name = "Value is required";
+            hasError = true;
+        }
+        this.setState(
+            {
+                validationMsg: fieldErrors,
+                nameValid: !hasError,
+            },
+            this.formValid
+        );
+    }
+
+    formValid = () => {
+        this.setState({
+            formValid: this.state.nameValid,
+        });
     };
 
-    handleNoteContent = (e) => {
-        this.context.noteContent = e.target.value;
+    updateName = (name) => {
+        this.setState({ name }, () => {
+            this.validateName(name);
+        });
     };
+
     handleSubmit = (e) => {
         e.preventDefault();
-        let name = this.context.noteName;
-        let content = this.context.noteContent;
-        let folderId = this.context.targetFolder;
-        let modified = new Date().toISOString();
-
-        let r =
-            Math.random().toString(36).substring(7) +
-            Math.random().toString(36).substring(7);
-
-        let id = r;
-        if (name === "") {
-            this.setState({ nameErr: "Please enter a note name" });
-        } else {
-            this.context.addNotes({ name, content, folderId, modified, id });
-            this.props.history.goBack();
-        }
-    };
-    handleRequired = () => {
-        return "NEED STUFF";
+        const note = {
+            name: e.target["note-name"].value,
+            content: e.target["note-content"].value,
+            folder_id: e.target["note-folder-id"].value,
+            created_date: new Date(),
+        };
+        this.context.addNote(note);
+        this.props.history.goBack();
     };
     render() {
         const folderSelects = this.context.folders.map((x) => (
@@ -56,16 +68,12 @@ class AddNote extends Component {
                         <span className='error-message'>
                             {this.state.nameErr}
                         </span>
-                        <input
-                            id='note-input-name'
-                            name='name'
-                            onChange={this.handleNameChange}
-                            required
-                        />
+                        <input id='note-input-name' name='note-name' required />
                         <div>
                             <select
                                 className='select-folder'
                                 onChange={this.handleTargetFolder}
+                                name='note-folder-id'
                                 required
                             >
                                 <option value hidden>
@@ -77,7 +85,7 @@ class AddNote extends Component {
                         <label htmlFor='content-input'>Content:</label>
                         <textarea
                             id='content-input'
-                            onChange={this.handleNoteContent}
+                            name='note-content'
                             required
                         ></textarea>
                         <button

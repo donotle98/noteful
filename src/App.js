@@ -22,11 +22,12 @@ class App extends Component {
             fetch(`https://arcane-river-47535.herokuapp.com/api/folders`),
         ])
             .then(([notesRes, foldersRes]) => {
-                if (!notesRes.ok)
+                if (!notesRes.ok) {
                     return notesRes.json().then((e) => Promise.reject(e));
-                if (!foldersRes.ok)
+                }
+                if (!foldersRes.ok) {
                     return foldersRes.json().then((e) => Promise.reject(e));
-
+                }
                 return Promise.all([notesRes.json(), foldersRes.json()]);
             })
             .then(([notes, folders]) => {
@@ -43,12 +44,43 @@ class App extends Component {
     };
 
     handleAddNote = (note) => {
-        this.setState({
-            notes: [...this.state.notes, note],
-        });
+        fetch("https://arcane-river-47535.herokuapp.com/api/notes/", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(note),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    return res.json().then((e) => Promise.reject(e));
+                }
+                return res.json();
+            })
+            .then((note) => {
+                this.setState({
+                    notes: [...this.state.notes, note],
+                });
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     };
     handleDeleteNote = (noteId) => {
-        this.updateList();
+        fetch(`https://arcane-river-47535.herokuapp.com/api/notes/${noteId}`, {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((resJson) => {
+                console.log(resJson);
+                this.updateList();
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     };
 
     componentDidMount() {

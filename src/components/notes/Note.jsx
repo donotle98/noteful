@@ -6,28 +6,7 @@ import PropTypes from "prop-types";
 
 class Note extends Component {
     static contextType = AppContext;
-    handleClickDelete = (e) => {
-        e.preventDefault();
-        console.log("delete pressed");
-        const noteId = this.props.id;
-        fetch(`https://arcane-river-47535.herokuapp.com/api/notes/${noteId}`, {
-            method: "DELETE",
-        })
-            .then((res) => {
-                if (!res.ok) {
-                    return res.json().then((e) => Promise.reject(e));
-                }
-                return res.json();
-            })
-            .then((resJson) => {
-                console.log(resJson.noteId);
-                this.context.handleDeleteNote(resJson.noteId);
-                this.props.history.push("/");
-            })
-            .catch((e) => {
-                console.log("delete note", { e });
-            });
-    };
+
     render() {
         return (
             <div className='note-div'>
@@ -46,7 +25,10 @@ class Note extends Component {
                 <div className='butt-div'>
                     <button
                         className='btn-one'
-                        onClick={this.handleClickDelete}
+                        onClick={() => {
+                            this.context.deleteNote(this.props.id);
+                            this.props.history.push("/");
+                        }}
                     >
                         <span>Delete</span>
                     </button>
