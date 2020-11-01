@@ -37,10 +37,31 @@ class App extends Component {
                 console.error({ error });
             });
     };
-    handleAddFolder = (folder) => {
-        this.setState({
-            folders: [...this.state.folders, folder],
-        });
+    handleAddFolder = (name) => {
+        const folder = {
+            name: name,
+        };
+        fetch("https://arcane-river-47535.herokuapp.com/api/folders/", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json",
+            },
+            body: JSON.stringify(folder),
+        })
+            .then((res) => {
+                if (!res.ok) {
+                    return res.json().then((e) => Promise.reject(e));
+                }
+                return res.json();
+            })
+            .then((folder) => {
+                this.setState({
+                    folders: [...this.state.folders, folder],
+                });
+            })
+            .catch((e) => {
+                console.log(e);
+            });
     };
 
     handleAddNote = (note) => {
@@ -85,6 +106,7 @@ class App extends Component {
 
     componentDidMount() {
         this.updateList();
+        this.handleAddFolder();
     }
     render() {
         const contextValue = {

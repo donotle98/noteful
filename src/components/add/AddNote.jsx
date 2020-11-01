@@ -6,50 +6,39 @@ import FolderSelects from "../add/FolderSelects";
 
 class AddNote extends Component {
     state = {
-        nameValid: false,
-        name: "",
-        validationMsg: {
-            name: "",
-        },
+        nameErr: "",
+        title: "",
+        folder_id: 0,
+        content: "",
     };
     static contextType = AppContext;
 
-    validateName(fieldValue) {
-        const fieldErrors = { ...this.state.validationMsg };
-        let hasError = false;
-
-        fieldValue = fieldValue.trim();
-        if (fieldValue.length === 0) {
-            fieldErrors.name = "Value is required";
-            hasError = true;
-        }
-        this.setState(
-            {
-                validationMsg: fieldErrors,
-                nameValid: !hasError,
-            },
-            this.formValid
-        );
-    }
-
-    formValid = () => {
+    handleName = (e) => {
         this.setState({
-            formValid: this.state.nameValid,
+            title: e.target.value,
         });
     };
-
-    updateName = (name) => {
-        this.setState({ name }, () => {
-            this.validateName(name);
+    handleTargetFolder = (e) => {
+        this.setState({
+            folder_id: e.target.value,
         });
     };
-
+    handleContent = (e) => {
+        this.setState({
+            content: e.target.value,
+        });
+    };
     handleSubmit = (e) => {
         e.preventDefault();
+        if (this.state.title === "") {
+            this.setState({
+                nameErr: "Please enter a name",
+            });
+        }
         const note = {
-            name: e.target["note-name"].value,
-            content: e.target["note-content"].value,
-            folder_id: e.target["note-folder-id"].value,
+            title: this.state.title,
+            content: this.state.content,
+            folder_id: this.state.folder_id,
             created_date: new Date(),
         };
         this.context.addNote(note);
@@ -68,7 +57,12 @@ class AddNote extends Component {
                         <span className='error-message'>
                             {this.state.nameErr}
                         </span>
-                        <input id='note-input-name' name='note-name' required />
+                        <input
+                            id='note-input-name'
+                            name='note-name'
+                            onChange={this.handleName}
+                            required
+                        />
                         <div>
                             <select
                                 className='select-folder'
@@ -87,6 +81,7 @@ class AddNote extends Component {
                             id='content-input'
                             name='note-content'
                             required
+                            onChange={this.handleContent}
                         ></textarea>
                         <button
                             onClick={(e) => {
