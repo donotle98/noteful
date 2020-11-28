@@ -1,3 +1,9 @@
+<h2>Noteful is a simple app of notekeeping, allowing users to create folders and notes that belong in each folder.</h2>
+<span>Each note will have a generated date of when it was created, a description, a title, and will belong to a folder. Each note can be deleted.</span>
+
+<a>https://noteful-seven-psi.vercel.app/</a>
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
